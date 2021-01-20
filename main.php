@@ -80,7 +80,6 @@ function    mainFunction()
     $decodedJson = json_decode($response);
     $configJson = recupConfigFile();
     $maxLength = getLongerName($decodedJson, $configJson->ACTIVITI_TITLE->CONNECT_VAR_PLANNING);
-    // printTitleSection($configJson);
     foreach ($decodedJson as $elem) {
         if ($elem->semester == $configJson->SEMESTER_VALUE[0] || $elem->semester == $configJson->SEMESTER_VALUE[1]) {
             foreach($elem as $key => $value) {
@@ -106,10 +105,10 @@ function    mainFunction()
                 }
                 if ($key == $configJson->SECTION_REGISTERED->CONNECT_VAR_PLANNING && $configJson->SECTION_REGISTERED->DISPLAY == true) {
                     if ($value == null) {
-                        echo "No";
+                        echo "\e", $configJson->SECTION_REGISTERED->COLOR, "No", "\e[39m";
                     }
                     else {
-                        echo "Yes";
+                        echo "\e[32m", "Yes", "\e[39m";
                     }
                 }
                 if ($key == $configJson->MODULE_REGISTERED->CONNECT_VAR_PLANNING && $configJson->MODULE_REGISTERED->DISPLAY == true) {
