@@ -1,0 +1,51 @@
+{
+    "MODULE":
+    {
+        "COLOR":"[1;37m",
+        "DISPLAY":true,
+        "TEXT": "MODULE",
+        "POSITION_DISPLAY":0,
+        "CONNECT_VAR_PLANNING":"codemodule"
+    },
+    "DATE_DEBUT":
+    {
+        "COLOR":"[1;34m",
+        "DISPLAY":true,
+        "TEXT": "START",
+        "POSITION_DISPLAY":1,
+        "CONNECT_VAR_PLANNING":"start"
+    },
+    "DATE_FIN":
+    {
+        "COLOR":"[1;34m",
+        "DISPLAY":true,
+        "TEXT": "END",
+        "POSITION_DISPLAY":2,
+        "CONNECT_VAR_PLANNING":"end"
+    },
+    "ACTIVITI_TITLE":
+    {
+        "COLOR":"[1;35m",
+        "DISPLAY":true,
+        "TEXT": "TITRE ACTIVITE",
+        "POSITION_DISPLAY":3,
+        "CONNECT_VAR_PLANNING":"acti_title"
+    },
+    "SECTION_REGISTERED":
+    {
+        "COLOR":"[1;31m",
+        "DISPLAY":true,
+        "TEXT": "SECTION REGISTERED",
+        "POSITION_DISPLAY":4,
+        "CONNECT_VAR_PLANNING":"event_registered"
+    },
+    "MODULE_REGISTERED":
+    {
+        "COLOR":"[1;31m",
+        "DISPLAY":false,
+        "TEXT": "MODULE REGISTERED",
+        "POSITION_DISPLAY":5,
+        "CONNECT_VAR_PLANNING":"module_registered"
+    },
+    "SEMESTER_VALUE":[5, 0]
+}

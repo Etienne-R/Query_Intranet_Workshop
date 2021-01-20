@@ -37,32 +37,88 @@ function    doCurlRequest($link)
 
 function    recupConfigFile()
 {
-    $configFile = file_get_contents('config.json');
+    $configFile = file_get_contents('go_deeper.json');
     $configJson = json_decode($configFile);
     // print($configFile);
     return ($configJson);
 }
 
+function    getLongerName($decodedJson, $keyEgual)
+{
+    $memLen = 0;
+    foreach ($decodedJson as $elem) {
+            foreach($elem as $key => $value) {
+                if ($key == $keyEgual) {
+                    if ($memLen < strlen($value))
+                        $memLen = strlen($value);
+                }
+            }
+    }
+    return ($memLen);
+}
+
+function    printTitleSection($jsonFile)
+{
+    foreach($jsonFile as $elem) {
+        foreach ($elem as $key => $value) {
+            if ($key == "TEXT") {
+                echo $value;
+                echo "\t\t";
+            }
+        }
+    }
+    echo "\n";
+}
+
 function    mainFunction()
 {
     $autolog = "";
-    $autolog = recupAutologinFile("autologin.txt");
+    $autolog = recupAutologinFile("../autologin.txt");
     // recupWeek();
     $request = getIntraJson($autolog);
     $response = doCurlRequest($request);
     $decodedJson = json_decode($response);
     $configJson = recupConfigFile();
+    $maxLength = getLongerName($decodedJson, $configJson->ACTIVITI_TITLE->CONNECT_VAR_PLANNING);
+    // printTitleSection($configJson);
     foreach ($decodedJson as $elem) {
-        foreach($elem as $key => $value) {
-            if ($key == $configJson->ModuleCode) {
-                print($value);
+        if ($elem->semester == $configJson->SEMESTER_VALUE[0] || $elem->semester == $configJson->SEMESTER_VALUE[1]) {
+            foreach($elem as $key => $value) {
+                if ($key == $configJson->MODULE->CONNECT_VAR_PLANNING && $configJson->MODULE->DISPLAY == true) {
+                    echo $value;
+                    echo "\t";
+                }
+                if ($key == $configJson->DATE_DEBUT->CONNECT_VAR_PLANNING && $configJson->DATE_DEBUT->DISPLAY == true) {
+                    echo $value;
+                    echo "\t";
+                }
+                if ($key == $configJson->DATE_FIN->CONNECT_VAR_PLANNING && $configJson->DATE_FIN->DISPLAY == true) {
+                    echo $value;
+                    echo "\t";
+                }
+                if ($key == $configJson->ACTIVITI_TITLE->CONNECT_VAR_PLANNING && $configJson->ACTIVITI_TITLE->DISPLAY == true) {
+                    echo $value;
+                    $len = strlen($value);
+                    while ($len < $maxLength) {
+                        echo " ";
+                        $len++;
+                    }
+                }
+                if ($key == $configJson->SECTION_REGISTERED->CONNECT_VAR_PLANNING && $configJson->SECTION_REGISTERED->DISPLAY == true) {
+                    if ($value == null) {
+                        echo "No";
+                    }
+                    else {
+                        echo "Yes";
+                    }
+                }
+                if ($key == $configJson->MODULE_REGISTERED->CONNECT_VAR_PLANNING && $configJson->MODULE_REGISTERED->DISPLAY == true) {
+                    echo "\t";
+                    echo $value;
+                }
             }
-            print(" ");
-            if ($key == $configJson->ModuleName) {
-                print($value);
-            }
+            echo "\n";
         }
-        print("\n");
     }
 }
 
